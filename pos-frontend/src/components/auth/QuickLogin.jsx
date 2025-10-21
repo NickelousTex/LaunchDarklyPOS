@@ -59,7 +59,7 @@ const QuickLogin = () => {
     return (
         <div className="space-y-6">
             <div className="text-center mb-8">
-                <h2 className="text-2xl font-bold text-white mb-2">Quick Login</h2>
+                <h2 className="text-2xl font-bold text-yellow-400 mb-2">Quick Login</h2>
                 <p className="text-[#ababab]">Select your role to continue</p>
             </div>
 
