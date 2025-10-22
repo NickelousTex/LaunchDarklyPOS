@@ -133,17 +133,18 @@ LaunchDarklyPOS/
 
 ## 🖼️ **Project Screenshots**
 
-![Home Dashboard](./images/home-dashboard.png)
-*Main dashboard interface after login*
-
-![Quick Login](./images/quick-login.png)
 *Role-based quick login interface*
+![Quick Login](./images/quick-login.png)
 
-![Beijing Corn Feature](./images/beijing-corn-feature.png)
+*Main dashboard interface after login*
+![Home Dashboard](./images/home-dashboard.png)
+
+
 *LaunchDarkly feature flag controlling Beijing Corn Soup menu item*
+![Beijing Corn Feature](./images/beijing-corn-feature.png)
 
-![Search Bar Feature](./images/search-bar-feature.png)
 *LaunchDarkly feature flag controlling search functionality*
+![Search Bar Feature](./images/search-bar-feature.png)
 
 
 ---
