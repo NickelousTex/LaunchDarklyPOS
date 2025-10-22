@@ -33,10 +33,12 @@ export const LaunchDarklyProvider = ({ children }) => {
           custom: {
             role: userData.role || 'Guest',
             phone: userData.phone || '',
-            avatar: userData.avatar || '👤'
+            timezone: userData.timezone || '',
+            timezoneDisplay: userData.timezoneDisplay || ''
           }
         };
 
+        
         // Initialize LaunchDarkly client
         const ldClient = initialize(clientSideId, userContext);
         
@@ -70,7 +72,7 @@ export const LaunchDarklyProvider = ({ children }) => {
         client.close();
       }
     };
-  }, [userData._id, userData.name, userData.email, userData.role]);
+  }, [userData._id, userData.name, userData.email, userData.role, userData.timezone, userData.timezoneDisplay]);
 
   const getFlag = (flagKey, defaultValue = false) => {
     return flags[flagKey] !== undefined ? flags[flagKey] : defaultValue;

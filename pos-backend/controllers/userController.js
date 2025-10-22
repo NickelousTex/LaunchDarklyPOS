@@ -57,7 +57,9 @@ const getAvailableRoles = async (req, res, next) => {
         const roles = predefinedUsers.map(user => ({
             role: user.role,
             name: user.name,
-            avatar: user.avatar
+            avatar: user.avatar,
+            timezone: user.timezone,
+            timezoneDisplay: user.timezoneDisplay
         }));
 
         res.status(200).json({

@@ -10,6 +10,7 @@ const QuickLogin = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [selectedRole, setSelectedRole] = useState("");
+    const [selectedRoleData, setSelectedRoleData] = useState(null);
 
     // Fetch available roles
     const { data: rolesData, isLoading: rolesLoading } = useQuery({
@@ -18,8 +19,9 @@ const QuickLogin = () => {
         staleTime: 5 * 60 * 1000, // 5 minutes
     });
 
-    const handleRoleSelection = (role) => {
-        setSelectedRole(role);
+    const handleRoleSelection = (roleData) => {
+        setSelectedRole(roleData.role);
+        setSelectedRoleData(roleData);
     };
 
     const handleQuickLogin = (e) => {
@@ -35,8 +37,8 @@ const QuickLogin = () => {
         mutationFn: (data) => quickLogin(data),
         onSuccess: (res) => {
             const { data } = res;
-            const { id, name, email, phone, role } = data.data;
-            dispatch(setUser({ _id: id, name, email, phone, role }));
+            const { id, name, email, phone, role, timezone, timezoneDisplay } = data.data;
+            dispatch(setUser({ _id: id, name, email, phone, role, timezone, timezoneDisplay }));
             enqueueSnackbar(`Welcome ${name}!`, { variant: "success" });
             navigate("/");
         },
@@ -73,13 +75,18 @@ const QuickLogin = () => {
                                     ? 'border-yellow-400 bg-yellow-400/10'
                                     : 'border-[#1f1f1f] bg-[#1f1f1f] hover:border-gray-600'
                             }`}
-                            onClick={() => handleRoleSelection(role.role)}
+                            onClick={() => handleRoleSelection(role)}
                         >
                             <div className="flex items-center space-x-4">
                                 <div className="text-2xl">{role.avatar}</div>
                                 <div>
                                     <h3 className="text-white font-semibold">{role.name}</h3>
                                     <p className="text-[#ababab] text-sm">{role.role}</p>
+                                    {role.timezoneDisplay && (
+                                        <p className="text-[#02ca3a] text-xs font-medium">
+                                            {role.timezoneDisplay}
+                                        </p>
+                                    )}
                                 </div>
                                 {selectedRole === role.role && (
                                     <div className="ml-auto">

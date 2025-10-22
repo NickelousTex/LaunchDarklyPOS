@@ -6,7 +6,9 @@ const predefinedUsers = [
     email: "admin@pos.com",
     phone: "1234567890",
     role: "Admin",
-    avatar: "👨‍💼"
+    avatar: "👨‍💼",
+    timezone: "America/New_York",
+    timezoneDisplay: "NY"
   },
   {
     id: "waiter-001", 
@@ -14,7 +16,9 @@ const predefinedUsers = [
     email: "waiter@pos.com",
     phone: "1234567891",
     role: "Waiter",
-    avatar: "👨‍🍳"
+    avatar: "👨‍🍳",
+    timezone: "America/Los_Angeles",
+    timezoneDisplay: "LA"
   },
   {
     id: "cashier-001",
@@ -22,7 +26,9 @@ const predefinedUsers = [
     email: "cashier@pos.com",
     phone: "1234567892",
     role: "Cashier",
-    avatar: "👩‍💼"
+    avatar: "👩‍💼",
+    timezone: "Asia/Singapore",
+    timezoneDisplay: "SIN"
   }
 ];
 

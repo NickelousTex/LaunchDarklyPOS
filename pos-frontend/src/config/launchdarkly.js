@@ -19,7 +19,8 @@ export const LAUNCHDARKLY_CONFIG = {
 // Feature flag keys
 export const FEATURE_FLAGS = {
   // Example feature flag for the POS system
-  NEW_MENU_DESIGN: 'new-menu-design',
+  NEW_MENU_DESIGN: 'new_menu_design',
   BEIJING_CORN_SOUP: 'beijing_corn_soup',
-  SEARCH_BAR_ENABLED: 'search_bar_enabled'
+  SEARCH_BAR_ENABLED: 'search_bar_enabled',
+  TIMEZONE_OFFSET: 'timezone_offset'
 };

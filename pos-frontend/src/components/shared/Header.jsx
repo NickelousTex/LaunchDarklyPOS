@@ -10,11 +10,16 @@ import { logout } from "../../https";
 import { removeUser } from "../../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import { MdDashboard } from "react-icons/md";
+import { useFeatureFlag } from "../../hooks/useFeatureFlag";
+import { FEATURE_FLAGS } from "../../config/launchdarkly";
 
 const Header = () => {
   const userData = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  // Feature flag for search bar
+  const searchBarEnabled = useFeatureFlag(FEATURE_FLAGS.SEARCH_BAR_ENABLED, false);
 
   const logoutMutation = useMutation({
     mutationFn: () => logout(),
@@ -43,14 +48,16 @@ const Header = () => {
       </div>
 
       {/* SEARCH */}
-      <div className="flex items-center gap-4 bg-[#1f1f1f] rounded-[15px] px-5 py-2 w-[500px]">
-        <FaSearch className="text-[#f5f5f5]" />
-        <input
-          type="text"
-          placeholder="Search"
-          className="bg-[#1f1f1f] outline-none text-[#f5f5f5]"
-        />
-      </div>
+      {searchBarEnabled.value === true && (
+        <div className="flex items-center gap-4 bg-[#1f1f1f] rounded-[15px] px-5 py-2 w-[500px]">
+          <FaSearch className="text-[#f5f5f5]" />
+          <input
+            type="text"
+            placeholder="Search"
+            className="bg-[#1f1f1f] outline-none text-[#f5f5f5]"
+          />
+        </div>
+      )}
 
       {/* LOGGED USER DETAILS */}
       <div className="flex items-center gap-4">
@@ -71,6 +78,11 @@ const Header = () => {
             <p className="text-xs text-[#ababab] font-medium">
               {userData.role || "Role"}
             </p>
+            {userData.timezoneDisplay && (
+              <p className="text-xs text-[#02ca3a] font-medium">
+                {userData.timezoneDisplay}
+              </p>
+            )}
           </div>
           <IoLogOut
             onClick={handleLogout}
