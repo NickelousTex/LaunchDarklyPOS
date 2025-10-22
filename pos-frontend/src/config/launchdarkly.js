@@ -1,7 +1,7 @@
 // LaunchDarkly Configuration
 export const LAUNCHDARKLY_CONFIG = {
   // Replace with your actual LaunchDarkly client-side ID
-  CLIENT_ID: '68da9d852bd0a909bbebcfc3',
+  CLIENT_ID: 'your-client-side-id-here',
   
   // Default user context for anonymous users
   DEFAULT_USER: {

@@ -24,12 +24,10 @@ const Header = () => {
   const logoutMutation = useMutation({
     mutationFn: () => logout(),
     onSuccess: (data) => {
-      console.log(data);
       dispatch(removeUser());
       navigate("/auth");
     },
     onError: (error) => {
-      console.log(error);
     },
   });
 

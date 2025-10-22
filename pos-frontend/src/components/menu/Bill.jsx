@@ -81,7 +81,6 @@ const Bill = () => {
           order_id: data.order.id,
           handler: async function (response) {
             const verification = await verifyPaymentRazorpay(response);
-            console.log(verification);
             enqueueSnackbar(verification.data.message, { variant: "success" });
 
             // Place the order
@@ -121,7 +120,6 @@ const Bill = () => {
         const rzp = new window.Razorpay(options);
         rzp.open();
       } catch (error) {
-        console.log(error);
         enqueueSnackbar("Payment Failed!", {
           variant: "error",
         });
@@ -152,7 +150,6 @@ const Bill = () => {
     mutationFn: (reqData) => addOrder(reqData),
     onSuccess: (resData) => {
       const { data } = resData.data;
-      console.log(data);
 
       setOrderInfo(data);
 
@@ -173,19 +170,16 @@ const Bill = () => {
       setShowInvoice(true);
     },
     onError: (error) => {
-      console.log(error);
     },
   });
 
   const tableUpdateMutation = useMutation({
     mutationFn: (reqData) => updateTable(reqData),
     onSuccess: (resData) => {
-      console.log(resData);
       dispatch(removeCustomer());
       dispatch(removeAllItems());
     },
     onError: (error) => {
-      console.log(error);
     },
   });
 

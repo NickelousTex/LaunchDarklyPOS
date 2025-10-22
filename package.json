@@ -1,0 +1,15 @@
+{
+  "name": "launchdarkly-pos",
+  "version": "1.0.0",
+  "description": "LaunchDarkly POS System",
+  "scripts": {
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "cd pos-backend && npm start",
+    "start:frontend": "cd pos-frontend && npm run dev",
+    "install:all": "npm install && cd pos-backend && npm install && cd ../pos-frontend && npm install",
+    "dev": "npm run start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
