@@ -4,6 +4,23 @@ import { FaCheck } from "react-icons/fa6";
 
 const Invoice = ({ orderInfo, setShowInvoice }) => {
   const invoiceRef = useRef(null);
+  
+  // Add error handling for missing orderInfo
+  if (!orderInfo) {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+        <div className="bg-white p-4 rounded-lg shadow-lg w-[400px]">
+          <p>Error: Order information not available</p>
+          <button
+            onClick={() => setShowInvoice(false)}
+            className="mt-4 bg-red-500 text-white px-4 py-2 rounded"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    );
+  }
   const handlePrint = () => {
     const printContent = invoiceRef.current.innerHTML;
     const WinPrint = window.open("", "", "width=900,height=650");
@@ -65,16 +82,16 @@ const Invoice = ({ orderInfo, setShowInvoice }) => {
           <div className="mt-4 border-t pt-4 text-sm text-gray-700">
             <p>
               <strong>Order ID:</strong>{" "}
-              {Math.floor(new Date(orderInfo.orderDate).getTime())}
+              {orderInfo.id || orderInfo._id || "N/A"}
             </p>
             <p>
-              <strong>Name:</strong> {orderInfo.customerDetails.name}
+              <strong>Name:</strong> {orderInfo.customerDetails?.name || "N/A"}
             </p>
             <p>
-              <strong>Phone:</strong> {orderInfo.customerDetails.phone}
+              <strong>Phone:</strong> {orderInfo.customerDetails?.phone || "N/A"}
             </p>
             <p>
-              <strong>Guests:</strong> {orderInfo.customerDetails.guests}
+              <strong>Guests:</strong> {orderInfo.customerDetails?.guests || "N/A"}
             </p>
           </div>
 
@@ -83,7 +100,7 @@ const Invoice = ({ orderInfo, setShowInvoice }) => {
           <div className="mt-4 border-t pt-4">
             <h3 className="text-sm font-semibold">Items Ordered</h3>
             <ul className="text-sm text-gray-700">
-              {orderInfo.items.map((item, index) => (
+              {orderInfo.items?.map((item, index) => (
                 <li
                   key={index}
                   className="flex justify-between items-center text-xs"
@@ -91,9 +108,9 @@ const Invoice = ({ orderInfo, setShowInvoice }) => {
                   <span>
                     {item.name} x{item.quantity}
                   </span>
-                  <span>${item.price.toFixed(2)}</span>
+                  <span>${item.price?.toFixed(2) || "0.00"}</span>
                 </li>
-              ))}
+              )) || <li>No items found</li>}
             </ul>
           </div>
 
@@ -101,14 +118,14 @@ const Invoice = ({ orderInfo, setShowInvoice }) => {
 
           <div className="mt-4 border-t pt-4 text-sm">
             <p>
-              <strong>Subtotal:</strong> ${orderInfo.bills.total.toFixed(2)}
+              <strong>Subtotal:</strong> ${orderInfo.bills?.total?.toFixed(2) || "0.00"}
             </p>
             <p>
-              <strong>Tax:</strong> ${orderInfo.bills.tax.toFixed(2)}
+              <strong>Tax:</strong> ${orderInfo.bills?.tax?.toFixed(2) || "0.00"}
             </p>
             <p className="text-md font-semibold">
               <strong>Grand Total:</strong> $
-              {orderInfo.bills.totalWithTax.toFixed(2)}
+              {orderInfo.bills?.totalWithTax?.toFixed(2) || "0.00"}
             </p>
           </div>
 
@@ -117,20 +134,20 @@ const Invoice = ({ orderInfo, setShowInvoice }) => {
           <div className="mb-2 mt-2 text-xs">
             {orderInfo.paymentMethod === "Cash" ? (
               <p>
-                <strong>Payment Method:</strong> {orderInfo.paymentMethod}
+                <strong>Payment Method:</strong> {orderInfo.paymentMethod || "N/A"}
               </p>
             ) : (
               <>
                 <p>
-                  <strong>Payment Method:</strong> {orderInfo.paymentMethod}
+                  <strong>Payment Method:</strong> {orderInfo.paymentMethod || "N/A"}
                 </p>
                 <p>
                   <strong>Razorpay Order ID:</strong>{" "}
-                  {orderInfo.paymentData?.razorpay_order_id}
+                  {orderInfo.paymentData?.razorpay_order_id || "N/A"}
                 </p>
                 <p>
                   <strong>Razorpay Payment ID:</strong>{" "}
-                  {orderInfo.paymentData?.razorpay_payment_id}
+                  {orderInfo.paymentData?.razorpay_payment_id || "N/A"}
                 </p>
               </>
             )}

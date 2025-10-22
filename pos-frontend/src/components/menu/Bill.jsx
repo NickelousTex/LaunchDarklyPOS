@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getTotalPrice } from "../../redux/slices/cartSlice";
 import {
   addOrder,
@@ -29,6 +30,7 @@ function loadScript(src) {
 
 const Bill = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const customerData = useSelector((state) => state.customer);
   const cartData = useSelector((state) => state.cart);
@@ -149,27 +151,35 @@ const Bill = () => {
   const orderMutation = useMutation({
     mutationFn: (reqData) => addOrder(reqData),
     onSuccess: (resData) => {
-      const { data } = resData.data;
+      try {
+        const { data } = resData.data;
+        console.log("Order created successfully:", data);
 
-      setOrderInfo(data);
+        setOrderInfo(data);
 
-      // Update Table
-      const tableData = {
-        status: "Booked",
-        orderId: data._id,
-        tableId: data.table,
-      };
+        // Update Table
+        const tableData = {
+          status: "Booked",
+          orderId: data.id || data._id,
+          tableId: data.table,
+        };
 
-      setTimeout(() => {
-        tableUpdateMutation.mutate(tableData);
-      }, 1500);
+        setTimeout(() => {
+          tableUpdateMutation.mutate(tableData);
+        }, 1500);
 
-      enqueueSnackbar("Order Placed!", {
-        variant: "success",
-      });
-      setShowInvoice(true);
+        enqueueSnackbar("Order Placed!", {
+          variant: "success",
+        });
+        setShowInvoice(true);
+      } catch (error) {
+        console.error("Error processing order success:", error);
+        enqueueSnackbar("Error processing order", { variant: "error" });
+      }
     },
     onError: (error) => {
+      console.error("Order creation failed:", error);
+      enqueueSnackbar("Failed to create order", { variant: "error" });
     },
   });
 
@@ -178,6 +188,8 @@ const Bill = () => {
     onSuccess: (resData) => {
       dispatch(removeCustomer());
       dispatch(removeAllItems());
+      // Navigate back to home page after order completion
+      navigate("/");
     },
     onError: (error) => {
     },
@@ -187,7 +199,7 @@ const Bill = () => {
     <>
       <div className="flex items-center justify-between px-5 mt-2">
         <p className="text-xs text-[#ababab] font-medium mt-2">
-          Items({cartData.lenght})
+          Items({cartData.length})
         </p>
         <h1 className="text-[#f5f5f5] text-md font-bold">
           ${total.toFixed(2)}
