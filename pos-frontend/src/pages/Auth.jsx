@@ -24,7 +24,7 @@ const Auth = () => {
         <blockquote className="absolute bottom-10 px-8 mb-10 text-2xl italic text-white">
           "Deliver features with confidence, speed, and control — delight your users every time, and they’ll keep coming back."
           <br />
-          <span className="block mt-4 text-yellow-400">- Motto of Rollout Noodles</span>
+          <span className="block mt-4 text-yellow-400">- ToggleBot of Rollout Noodles</span>
         </blockquote>
       </div>
 
