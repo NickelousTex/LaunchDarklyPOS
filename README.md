@@ -2,38 +2,18 @@
 
 A **demo Restaurant POS System** built using **React, Node.js, and Express** with **LaunchDarkly Feature Flags** to showcase how feature flags can be used to control restaurant operations, user experience, and dynamic functionality.
 
-## ✨ **Demo Features**
-
-- 🍽️ **Mock Order Management**  
-  Simulate customer orders with real-time updates and status tracking.
-
-- 🪑 **Table Management**  
-  Demo table bookings and reservations functionality.
-
-- 🔐 **Quick Login System**  
-  Role-based access with predefined user roles (Admin, Waiter, Cashier).
-
-- 💸 **Payment Simulation**  
-  Mock payment integration with Razorpay for demonstration purposes.
-
-- 🧾 **Billing Demo**  
-  Generate sample bills and invoices for demonstration.
-
-- 🚀 **Feature Flags Showcase**  
-  Dynamic feature toggles powered by LaunchDarkly to demonstrate A/B testing and gradual rollouts.
-
 ## 🏗️ **Tech Stack**
 
 | **Category**             | **Technology**                |
 |--------------------------|-------------------------------|
 | 🖥️ **Frontend**          | React.js, Redux, Tailwind CSS  |
 | 🔙 **Backend**           | Node.js, Express.js           |
-| 💾 **Data Storage**       | In-memory storage (demo data) |
-| 🔐 **Authentication**    | JWT, bcrypt                   |
-| 📊 **State Management**   | Redux Toolkit                 |
-| ⚡ **Data Fetching & Caching** | React Query            |
-| 🔗 **APIs**              | RESTful APIs                   |
 | 🚀 **Feature Flags**     | LaunchDarkly                  |
+| 💾 **Data Storage**       | In-memory storage (demo data) |
+| 🔐 **Authentication**    | JWT, bcrypt ** not implemented                   |
+| 📊 **State Management**   | Redux Toolkit                 |
+| 🔗 **APIs**              | RESTful APIs                   |
+
 
 ---
 
