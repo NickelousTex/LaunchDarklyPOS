@@ -4,6 +4,8 @@ import { GrRadialSelected } from "react-icons/gr";
 import { FaShoppingCart } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { addItems } from "../../redux/slices/cartSlice";
+import { useFeatureFlag } from "../../hooks/useFeatureFlag";
+import { FEATURE_FLAGS } from "../../config/launchdarkly";
 
 
 const MenuContainer = () => {
@@ -11,6 +13,17 @@ const MenuContainer = () => {
   const [itemCount, setItemCount] = useState(0);
   const [itemId, setItemId] = useState();
   const dispatch = useDispatch();
+  
+  // Feature flag for Beijing Corn Soup
+  const beijingCornSoup = useFeatureFlag(FEATURE_FLAGS.BEIJING_CORN_SOUP, false);
+
+  // Helper function to get the display name based on feature flag
+  const getItemDisplayName = (item) => {
+    if (item.name === "Chicken Corn Soup" && beijingCornSoup.value) {
+      return "Beijing Corn Soup";
+    }
+    return item.name;
+  };
 
   const increment = (id) => {
     setItemId(id);
@@ -27,8 +40,9 @@ const MenuContainer = () => {
   const handleAddToCart = (item) => {
     if(itemCount === 0) return;
 
-    const {name, price} = item;
-    const newObj = { id: new Date(), name, pricePerQuantity: price, quantity: itemCount, price: price * itemCount };
+    const {price} = item;
+    const displayName = getItemDisplayName(item);
+    const newObj = { id: new Date(), name: displayName, pricePerQuantity: price, quantity: itemCount, price: price * itemCount };
 
     dispatch(addItems(newObj));
     setItemCount(0);
@@ -77,7 +91,7 @@ const MenuContainer = () => {
             >
               <div className="flex items-start justify-between w-full">
                 <h1 className="text-[#f5f5f5] text-lg font-semibold">
-                  {item.name}
+                  {getItemDisplayName(item)}
                 </h1>
                 <button onClick={() => handleAddToCart(item)} className="bg-[#2e4a40] text-[#02ca3a] p-2 rounded-lg"><FaShoppingCart size={20} /></button>
               </div>
